@@ -1,0 +1,158 @@
+﻿<!-- Main content -->
+<section class="content-header">
+    
+</section>
+
+<section class="content"  ng-init="initializeEditSeguimiento()">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Editar Seguimiento</li>
+    </ol>
+
+    <!--<div class="panel-heading" role="tab" id="headingTaxanomia">
+        <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion2" data-target="#collapseTaxonomia" aria-expanded="true" aria-controls="collapseTaxonomia">
+                Seguimiento
+            </a>
+        </h4>
+    </div>-->
+    
+    <div class="panel-body">
+        <div class="row">
+            <div class="row">
+                <div style="text-align:center" class="alert alert-info" role="alert">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Seguimiento de {{editPaciente.nombres}} {{editPaciente.apellidos}}
+                </div>
+                <div class="col-md-4">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label>Médico referente</label>
+                                        <input type="text" class="form-control" ng-model="editSeguimiento.medicoReferente" id="ejemplo_password_2" placeholder="Médico referente">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Tipo</label>
+                            <select ng-model="editSeguimiento.tipoSeguimiento" class="form-control select2" style="width: 100%;">
+                                <option selected="selected">Ecografía</option>
+                                <option>Radiografía</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Seguimientos</label>
+                            <button class="btn btn-success btn-block ng-scope" data-toggle="modal" data-target="#myModal" ng-click="verResultado()">Visualizar Resultado</button> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-xs-12">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Sintomas</label>
+                            <textarea ng-model="editSeguimiento.sintomas" id="form10" class="md-textarea form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    
+            <div class="col-md-12">
+        <button class="btn btn-success btn-block ng-scope" ng-click="updateSeguimiento()">Actualizar Seguimiento</button>
+          </div>
+        <div class="col-md-12">
+            <div class="callout callout-success" ng-show="errorAddSeguimiento== 0" style="margin-top: 20px;">
+                <h4><i class="icon fa fa-check"></i> &nbsp; Correcto!</h4>
+                <p>{{messageAfterAddSeguimiento}}</p>
+            </div>
+            <div class="callout callout-danger" ng-show="errorAddSeguimiento == 1 " style="margin-top: 20px;">
+                <h4><i class="icon fa fa-ban"></i> &nbsp; Error!</h4>
+                <p>{{messageAfterAddSeguimiento}}</p>
+            </div>
+        </div>
+        <!-- ./row -->
+</section>
+
+<!-- /.content -->
+  </div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Seguimientos del paciente</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-striped table-bordered table-list">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Médico Referente</th>
+                                <th>cm</th>
+                                <th>ct</th>
+                                <th>gn</th>
+                                <th>Sintomas</th>                                
+                                <th>Tipo</th>
+                                <th><em class="fa fa-cog"></em></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="seguimiento in filtered = (seguimientosPaciente| filter: querySeguimiento) ">
+                                <td>{{seguimiento.fecha}}</td>
+                                <td>{{seguimiento.medicoReferente}}</td>
+                                <td>{{seguimiento.cm}}</td>
+                                <td>{{seguimiento.ct}}</td>
+                                <td>{{seguimiento.gn}}</td>
+                                <td>{{seguimiento.sintomas}}</td>                                
+                                <td>{{seguimiento.tipoSeguimiento}}</td>                                
+                                <td align="center">
+                                    <a class="btn btn-warning" href="#editSeguimiento/{{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-pencil"></em></a>
+                                    <a class="btn btn-success" href="../../../editor/editResultado.html?idSeguimiento={{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-file-text-o"></em></a>
+                                    <!--<a class="btn btn-success" href="#editSeguimiento/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-check"></em></a>-->
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="callout callout-success" ng-if="pacientes.length >0" style="margin-top: 20px;">
+
+                        <p ng-if="pacientes.length>0">Se encontraron {{pacientes.length}} resultados</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button ng-click="siguientesPaciente()" class="btn btn-info btn-block" ng-if="cuadernos.length>=(busquedaPacientes.skip+busquedaPacientes.take)">Más resultados...</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.content-wrapper -->
+
+

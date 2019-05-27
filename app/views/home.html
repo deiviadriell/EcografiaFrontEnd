@@ -1,0 +1,66 @@
+﻿<section class="content" ng-init="initializeHome()">
+    <div class="jumbotron" style="padding-right: 30px;padding-left: 30px;">
+        
+        <!--<p>Fecha:</p>-->
+        <div class="row">
+            <div class="col-md-4">
+                <!-- Info Boxes Style 2 -->
+                <div class="info-box bg-yellow">
+                    <span class="info-box-icon"><i class="fa fa-male"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Pacientes Masculinos</span>
+                        <span class="info-box-number">{{totalPacientesMasculino}}</span>                        
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- /.info-box -->
+                <div class="info-box bg-blue">
+                    <span class="info-box-icon"><i class="fa fa-female"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Pacientes Femeninos</span>
+                        <span class="info-box-number">{{totalPacientesFemenino}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!-- /.info-box -->
+                <div class="info-box bg-red">
+                    <span class="info-box-icon"><i class="fa fa-medkit"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Seguimientos</span>
+                        <span class="info-box-number">{{totalSeguimientos}}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+
+            </div>
+        </div>        
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">Pacientes por mes</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-xs-12" ng-if="graficos!=null" style="margin: 10px 0 10px 0">
+                            <!--chart-options="options"
+                            chart-dataset-override="datasetOverride" chart-click="onClick"-->
+
+                            <canvas id="line" class="chart-horizontal-bar ng-isolate-scope" chart-data="graficos.datos" chart-labels="graficos.meses" chart-options="optionsGraphs3" chart-series="series"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.box-body -->
+        </div>      
+
+       
+    </div>
+</section>

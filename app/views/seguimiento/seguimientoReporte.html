@@ -1,0 +1,150 @@
+﻿
+
+<!-- Main content -->
+<section class="content" ng-init="initializeSeguimientosPorFecha()" id="busquedaAvanzada">
+    <div class="loading" ng-show="loading">Loading&#8230;</div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <!--Accordion -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <!--Busqueda Normal-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingDatos">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseDatos" aria-expanded="true" aria-controls="collapseDatos">
+                                    Búsqueda de Seguimientos
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseDatos" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTaxonomia">
+                            <div class="panel-body">
+                                <h1>
+                                    Seguimientos &nbsp;
+                                </h1>
+                                <p>Busque seguimientos por rango de fechas</p>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <label>Fecha de Inicio</label>
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <!--<input type="text" ng-readonly="true" class="form-control" placeholder="Fecha Nacimiento" ng-model="newPaciente.fecNacimiento" formatted-date datepicker>-->
+                                            <input id="datetimepicker" value="new Date()" type="text" class="form-control" placeholder="Rango fecha inicio"  ng-model="buscarSeguimiento.fechaInicio" formatted-date datepicker>
+                                            <!--<input datepicker=""  ng-model="buscarSeguimiento.fechaInicio" type="text" class="form-control pull-right" id="datepicker">-->
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label>Fecha de Fin</label>
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>      
+                                            <input type="text" class="form-control" placeholder="Rango fecha final" ng-model="buscarSeguimiento.fechaFin" formatted-date datepicker>                                                                                                                              
+                                        </div>
+                                    </div>          
+                                    <div class="col-md-2">  
+                                        <label></label>
+                                        <div class="form-group">   
+                                            <div>
+                                                <button class="btn btn-default" type="button" ng-click="seguimientosPorFecha(buscarSeguimiento)"> Buscar</button>
+                                            </div>                                                                                     
+                                        </div>                                      
+                                       
+                                    </div>                                    
+                                </div>
+
+
+
+                              
+
+                            </div>
+                        </div>
+                    </div>              
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingResultado">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion1" data-target="#collapseResultado" aria-expanded="true" aria-controls="collapseResultado">
+                                    Resultados
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseResultado" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingResultado">
+                            <div class="panel-body">
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-xs-12">
+                                        <div class="callout callout-success" ng-show="errorBusqueda==0" style="margin-top: 20px;">
+                                            <h4><i class="icon fa fa-check"></i> &nbsp; Correcto!</h4>
+                                            <p>{{messageAfterBusqueda}}</p>
+                                        </div>
+
+                                        <div class="callout callout-danger" ng-show="errorBusqueda==1" style="margin-top: 20px;">
+                                            <h4><i class="icon fa fa-check"></i> &nbsp; Error!</h4>
+                                            <p>{{messageAfterBusqueda}}</p>                                            
+                                        </div>
+                                    </div>
+                                    <div ng-if="seguimientosDeUnaFecha.length>0" class="col-xs-12">
+                                        <button ng-click="exportarExcelRealTodosSeguimientos(buscarSeguimiento)" class="btn btn-success">Exportar Excel {{seguimientosDeUnaFecha.length}} Seguimientos</button>
+                                    </div>
+                                    <div ng-if="seguimientosDeUnaFecha.length>0" class="col-xs-12">
+                                        <input class="form-control" type="text" id="query" ng-model="querySeguimientos" placeholder="Filtre Búsqueda" />
+                                    </div>
+                                    <div ng-if="seguimientosDeUnaFecha.length>0" class="col-xs-12">
+                                        <p ng-if="seguimientosDeUnaFecha.length > 0">Se muestran {{seguimientosDeUnaFecha.length }} de {{seguimientosDeUnaFecha.length}} resultados</p>
+                                        <table class="table table-striped table-bordered table-list">
+                                            <thead>
+                                                <tr>
+                                                    <th><em class="fa fa-cog"></em></th>
+                                                    <th style="width:10%">Fecha </th>
+                                                    <th style="width:25%">Paciente</th>
+                                                    <th>Sintomas</th>
+                                                    <th style="width:15%">Médico Referente</th>
+                                                    <th>Tipo</th>                                                    
+                                                    <!--<th style="width:10%"><em class="fa fa-cog"></em></th>-->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="seguimiento in filtered = (seguimientosDeUnaFecha | filter: querySeguimientos)">
+                                                    <td align="center">
+                                                        <input type="checkbox" data-checklist-model="seguimientosSeleccionados.items" data-checklist-value="seguimiento">
+                                                    </td>
+                                                    <td>{{seguimiento.fecha | getCuteDateWithoutHours}}</td>
+                                                    <td>{{seguimiento.paciente}}</td>
+                                                    <td>{{seguimiento.sintomas}}</td>
+                                                    <td>{{seguimiento.medicoReferente}}</td>
+                                                    <td>{{seguimiento.tipo}}</td>                                                    
+                                                    <!--<td align="center">
+                                                        <a class="btn btn-warning" href="#editSeguimiento/{{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-pencil"></em></a>
+                                                        <a class="btn btn-success" href="../../../editor/editResultado.html?idSeguimiento={{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-file-text-o"></em></a>                                                        
+
+                                                    </td>-->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <!--<button class="btn btn-primary" ng-click="selectAllSeguimientos()">Seleccionar Todos</button>
+                                        <button class="btn btn-warning" ng-click="deselectSeguimientos()">Deseleccionar Todos</button>-->
+                                        <p ng-if="seguimientosDeUnaFecha.length > 0">Se muestran {{seguimientosDeUnaFecha.length }} de {{seguimientosDeUnaFecha.length}} resultados</p>
+                                        
+                                        <!--<div class="col-xs-12">
+                                            <div class="col-xs-6">
+                                                <button ng-click="exportarExcelTejidos()" class="btn btn-default">Exportar Excel Seguimientos Seleccionados</button>
+                                            </div>
+                                        </div>-->
+                                    </div>
+                                </div>                                                               
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+   
+</section>

@@ -1,0 +1,75 @@
+﻿<section class="content" ng-init="initializeRespaldosOffLine()">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Respaldos OffLine</li>
+    </ol>
+    <div class="row">
+        <div class="col-xs-12">   
+            <div class="loading" ng-show="loading">Loading&#8230;</div>         
+            <!--<div class="col-xs-12">
+
+            </div>-->
+            <div class="col-xs-12">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <!--Busqueda Normal-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingDatos">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseDatos" aria-expanded="true" aria-controls="collapseDatos">
+                                    Respaldos OffLine
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseDatos" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTaxonomia">
+                            <div class="panel-body">
+                                <div class="col-xs-12 table-responsive">
+                                    <table class="table table-striped table-bordered table-list">
+                                        <thead>
+                                            <tr>
+                                                <th>Fech. Creación</th>
+                                                <th>Fec. Subida</th>
+                                                <th>Nombre Archivo</th>
+                                                <th>Ruta Física</th>
+                                                <th>Tamaño</th>
+                                                <th>Enlace</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="respaldo in filtered = (respaldos | filter: queryRespaldos) ">
+                                                <td>{{respaldo.fechaCreacion | getCuteDateWithoutHours}}</td>
+                                                <td>{{respaldo.fechaSubida | getCuteDateWithoutHours}}</td>
+                                                <td>{{respaldo.nombreArchivo}}</td>
+                                                <td>{{respaldo.rutaFisica}}</td>
+                                                <td>{{respaldo.tamano |  Filesize}}</td>
+                                                <td><a class="btn btn-warning" href="{{respaldo.enlaceDescarga}}" target="_blank"><em class="fa fa-download"></em></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="callout callout-success" ng-if="respaldo.length >0" style="margin-top: 20px;">
+
+                                        <p ng-if="pacientes.length>0">Mostrando {{respaldo.length}} respaldos, total de respaldos en la base de datos {{respaldo.length}}</p>
+                                    </div>
+                                    <!--<div class="row">
+                                        <div class="col-xs-12">
+                                            <button ng-click="generarRespaldoInstante()" class="btn btn-info btn-block" >Generar Respaldo en este momento</button>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+
+
+                </div>                 
+           
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+
