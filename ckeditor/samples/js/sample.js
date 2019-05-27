@@ -14,15 +14,9 @@ if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
 CKEDITOR.config.height = 800;
 CKEDITOR.config.width = 'auto';
 CKEDITOR.config.extraPlugins = 'texttransform';
-//CKEDITOR.config.extraPlugins = 'pastefromword';
-//CKEDITOR.config.extraPlugins = 'font';
 let pts = [9, 12, 14, 16],
 	px = [16, 24, 48];
-
 CKEDITOR.config.fontSize_sizes = '8/8pt;9/9pt;10/10pt;11/11pt;12/12pt;14/14pt;16/16pt;18/18pt;20/20pt;22/22pt;24/24pt;26/26pt;28/28pt;36/36pt;48/48pt;72/72pt;';
-//CKEDITOR.fontSize_sizes = pts.map(ptVal => `${ptVal}/${ptVal}.0pt`).concat(px.map(pxVal => `${pxVal}px/${pxVal}px`)).join(';');
-//CKEDITOR.fontSize_sizes = pts.map(ptVal => `${ptVal}/${ptVal}.0pt`).concat(px.map(pxVal => `${pxVal}px/${pxVal}px`)).join(';');
-//CKEDITOR.config.disableNativeSpellChecker = true;
 CKEDITOR.disableNativeSpellChecker = false;
 CKEDITOR.pasteFromWordRemoveFontStyles = false,
 CKEDITOR.pasteFromWordRemoveStyles = false
