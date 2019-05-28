@@ -42,10 +42,10 @@
                                 <td>{{paciente.correo}}</td>                                
                                 <td>{{paciente.genero}}</td>                                
                                 <td align="center">
-                                    <a class="btn btn-warning" href="#editPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-pencil"></em></a>                                    
-                                    <button class="btn btn-danger" data-toggle="modal" data-target="#deletePaciente" ng-click="changeEditPaciente(paciente)"><em class="fa fa-trash"></em></button>
-                                    <a class="btn btn-info" href="#VerPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-eye"></em></a>
-                                    <a class="btn btn-success" href="#newSeguimiento/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-file-text-o"></em></a>
+                                    <a class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Paciente" href="#editPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-pencil"></em></a>                                    
+                                    <button  class="btn btn-danger" data-toggle="modal" data-target="#deletePaciente" ng-click="changeEditPaciente(paciente)"><em class="fa fa-trash"></em></button>
+                                    <a data-toggle="tooltip" data-placement="top" title="Ver Paciente" class="btn btn-info" href="#VerPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-eye"></em></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn btn-success" href="#newSeguimiento/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-file-text-o"></em></a>
                                     
                                     
                                 </td>
@@ -105,3 +105,8 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>

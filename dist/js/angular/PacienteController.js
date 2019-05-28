@@ -61,7 +61,7 @@
                 $scope.errorAddPaciente = 0; $scope.messageAfterAddPaciente = "Búsqueda correcta"; $timeout(function () { $scope.errorAddPaciente = -1; }, 3000);
 
             }
-
+            $scope.getTotalPacientes();
             $scope.pacientes = data;
         }).catch(function (err) {
             $scope.errorAddPaciente = 1; $scope.messageAfterAddPaciente = "Error en búsqueda, intente más tarde"; $timeout(function () { $scope.errorAddPaciente = -1; }, 2000);

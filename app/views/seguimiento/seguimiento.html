@@ -96,10 +96,10 @@
                                             <td>{{seguimiento.medicoReferente}}</td>
                                             <td>{{seguimiento.tipo}}</td>
                                             <td align="center">
-                                                <a class="btn btn-warning" href="#editSeguimiento/{{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-pencil"></em></a>
+                                                <a class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Seguimiento" href="#editSeguimiento/{{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-pencil"></em></a>
                                                 <button class="btn btn-danger" data-toggle="modal" data-target="#deleteSeguimiento" ng-click="changeEditSeguimiento(seguimiento)"><em class="fa fa-trash"></em></button>
                                                 <!--<a class="btn btn-info" href="#VerSeguimiento/{{seguimiento.idPaciente}}" target="_blank"><em class="fa fa-eye"></em></a>-->
-                                                <a class="btn btn-success" href="../../../editor/editResultado.html?idSeguimiento={{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-file-text-o"></em></a>
+                                                <a data-toggle="tooltip" data-placement="top" title="Editar Resultado" class="btn btn-success" href="../../../editor/editResultado.html?idSeguimiento={{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-file-text-o"></em></a>
                                             </td>
 
                                         </tr>
@@ -151,3 +151,8 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>

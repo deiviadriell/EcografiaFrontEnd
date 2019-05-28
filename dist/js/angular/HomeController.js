@@ -67,6 +67,7 @@
             console.log(data.Message);
         });
     }
+    $scope.fechaActual = new Date();
     
 
 });
