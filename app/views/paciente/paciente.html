@@ -42,9 +42,11 @@
                                 <td>{{paciente.correo}}</td>                                
                                 <td>{{paciente.genero}}</td>                                
                                 <td align="center">
-                                    <a class="btn btn-warning" href="#editPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-pencil"></em></a>
+                                    <a class="btn btn-warning" href="#editPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-pencil"></em></a>                                    
+                                    <button class="btn btn-danger" data-toggle="modal" data-target="#deletePaciente" ng-click="changeEditPaciente(paciente)"><em class="fa fa-trash"></em></button>
                                     <a class="btn btn-info" href="#VerPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-eye"></em></a>
                                     <a class="btn btn-success" href="#newSeguimiento/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-file-text-o"></em></a>
+                                    
                                     
                                 </td>
                             </tr>
@@ -64,7 +66,42 @@
 
     </div>
     
+    <div class="col-md-12">
+        <div class="callout callout-success" ng-show="errorAddPaciente== 0" style="margin-top: 20px;">
+            <h4><i class="icon fa fa-check"></i> &nbsp; Correcto!</h4>
+            <p>{{messageAfterAddPaciente}}</p>
+        </div>
+        <div class="callout callout-danger" ng-show="errorAddPaciente == 1 " style="margin-top: 20px;">
+            <h4><i class="icon fa fa-ban"></i> &nbsp; Error!</h4>
+            <p>{{messageAfterAddPaciente}}</p>
+        </div>
+    </div>
+
 </section>
 
 
 
+<div class="modal fade" tabindex="-1" role="dialog" id="deletePaciente">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmar borrado de Paciente</h4>
+            </div>
+            <div class="modal-body">
+                <p>Está a punto de borrar un paciente de la base de datos</p>                
+                <p>Cédula: {{editPaciente.cedula}}</p>
+                <p>Paciente: {{editPaciente.nombres}} {{editPaciente.apellidos}}</p>
+                <p>Direccion: {{editPaciente.direccion}}</p>
+                <p>Teléfono: {{editPaciente.telefono}}</p>
+                <p>Correo: {{editPaciente.correo}}</p>
+                <p>Género: {{editPaciente.genero}}</p>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" ng-click="deletePaciente()">Borrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

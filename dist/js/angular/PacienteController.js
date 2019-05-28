@@ -54,7 +54,17 @@
     }
     $scope.busquedaDePacientes = function (pacienteABuscar) {
         $http.get(Server.direction + 'api/Pacientes/Parametro/' + pacienteABuscar, { headers: { 'Content-Type': 'application/json' } }).success(function (data) {
+            if (data.length == 0) {
+                $scope.errorAddPaciente = 0; $scope.messageAfterAddPaciente = "Búsqueda correcta, pero sin resultados"; $timeout(function () { $scope.errorAddPaciente = -1; }, 3000);
+            }
+            else {
+                $scope.errorAddPaciente = 0; $scope.messageAfterAddPaciente = "Búsqueda correcta"; $timeout(function () { $scope.errorAddPaciente = -1; }, 3000);
+
+            }
+
             $scope.pacientes = data;
+        }).catch(function (err) {
+            $scope.errorAddPaciente = 1; $scope.messageAfterAddPaciente = "Error en búsqueda, intente más tarde"; $timeout(function () { $scope.errorAddPaciente = -1; }, 2000);
         });
     }
 
@@ -77,6 +87,31 @@
         $http.get(Server.direction + 'api/Pacientes/Seguimientos/' + idPaciente, { headers: { 'Content-Type': 'application/json' } }).success(function (data) {
             $scope.seguimientos = data;
         
+        });
+    }
+    $scope.changeEditPaciente = function (paciente) {
+        $scope.editPaciente = paciente;
+        //$scope.getEspecimenesFromImagen($scope.editImagen.Imagen.idImagen);
+    }
+    $scope.deletePaciente = function () {
+        $scope.editPaciente.borrado = new Date();
+        $http.put(Server.direction + 'api/Pacientes/' + $scope.editPaciente.idPaciente, $scope.editPaciente, { headers: { 'Content-Type': 'application/json' } }).success(function (data) {
+            $scope.errorAddPaciente = 0; $scope.messageAfterAddPaciente = "Paciente eliminado exitosamente"; $timeout(function () { $scope.errorAddPaciente = -1; }, 3000);
+            console.log($scope.pacienteABuscar);
+            if ($scope.pacienteABuscar == null || $scope.pacienteABuscar== undefined) {
+                $scope.getPacientes(5);
+                $scope.getTotalPacientes();
+                
+            }
+            else {
+                $scope.busquedaDePacientes($scope.pacienteABuscar);
+            }
+
+            
+            $("#deletePaciente").modal('hide');
+        }).error(function (data) {
+            $scope.errorAddPaciente = 1; $scope.messageAfterAddPaciente = data.Message + " Error al eliminar el paciente, intente más tarde";
+            $timeout(function () { $scope.errorAddPaciente = -1; }, 3000);
         });
     }
     $scope.generos = [

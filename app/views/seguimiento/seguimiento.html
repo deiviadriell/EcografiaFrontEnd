@@ -97,6 +97,7 @@
                                             <td>{{seguimiento.tipo}}</td>
                                             <td align="center">
                                                 <a class="btn btn-warning" href="#editSeguimiento/{{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-pencil"></em></a>
+                                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteSeguimiento" ng-click="changeEditSeguimiento(seguimiento)"><em class="fa fa-trash"></em></button>
                                                 <!--<a class="btn btn-info" href="#VerSeguimiento/{{seguimiento.idPaciente}}" target="_blank"><em class="fa fa-eye"></em></a>-->
                                                 <a class="btn btn-success" href="../../../editor/editResultado.html?idSeguimiento={{seguimiento.idSeguimiento}}" target="_blank"><em class="fa fa-file-text-o"></em></a>
                                             </td>
@@ -125,3 +126,28 @@
 
 
 
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deleteSeguimiento">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmar borrado de Seguimiento</h4>
+            </div>
+            <div class="modal-body">
+                <p>Está a punto de borrar un seguimiento de la base de datos</p>
+                <p><b>Fecha:</b> {{editSeguimiento.fecha | getCuteDateWithoutHours }}</p>
+                <p><b>Paciente:</b> {{editSeguimiento.paciente}}</p>
+                <p><b>Sintomas:</b> {{editSeguimiento.sintomas}}</p>
+                <p><b>Médico Referente:</b> {{editSeguimiento.medicoReferente}}</p>
+                <p><b>Sintomas:</b> {{editSeguimiento.sintomas}}</p>                
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" ng-click="deleteSeguimiento()">Borrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

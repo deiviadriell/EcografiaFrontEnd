@@ -276,7 +276,7 @@
         });
     }
     
-    $scope.buscarSeguimientosSeguimiento
+  //  $scope.buscarSeguimientosSeguimiento
 
     $scope.seguimientosSeleccionados = {}
     $scope.seguimientosSeleccionados.items = [];
@@ -324,5 +324,21 @@
             }
         }
     };
+
+    $scope.changeEditSeguimiento = function (seguimiento) {
+        $scope.editSeguimiento = seguimiento;
+        //$scope.getEspecimenesFromImagen($scope.editImagen.Imagen.idImagen);
+    }
+    $scope.deleteSeguimiento= function () {
+        $scope.editSeguimiento.borrado = new Date();
+        $http.put(Server.direction + 'api/Seguimientoes/' + $scope.editSeguimiento.idSeguimiento, $scope.editSeguimiento, { headers: { 'Content-Type': 'application/json' } }).success(function (data) {
+            $scope.errorBusqueda = 0; $scope.messageAfterBusqueda = "Seguimiento eliminado exitosamente"; $timeout(function () { $scope.errorBusqueda = -1; }, 3000);           
+            $scope.buscarSeguimientosSeguimiento($scope.busquedaSeguimiento);
+            $("#deleteSeguimiento").modal('hide');
+        }).error(function (data) {
+            $scope.errorBusqueda = 1; $scope.messageAfterBusqueda = data.Message + " Error al eliminar el paciente, intente más tarde";
+            $timeout(function () { $scope.errorAddPaciente = -1; }, 3000);
+        });
+    }
 
 });
