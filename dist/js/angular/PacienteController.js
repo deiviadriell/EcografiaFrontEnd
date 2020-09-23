@@ -2,7 +2,7 @@
 
     $scope.initializePaciente = function () {
         $scope.buscarPaciente = "";
-        $scope.getPacientes(5);
+        $scope.getPacientes(25);
         $scope.getTotalPacientes();
 
     }

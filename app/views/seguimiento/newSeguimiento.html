@@ -40,18 +40,19 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12">                                   
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-xs-12">
-                                                <div class="form-group">
-                                                    <label>Médico referente</label>
-                                                    <input type="text" class="form-control" ng-model="newSeguimiento.medicoReferente" id="ejemplo_password_2" placeholder="Médico referente">
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <label>Médico Referente</label>                                       
+                                        <ui-select ng-model="newSeguimiento.idMedicoReferente" theme="bootstrap">
+                                            <ui-select-match allow-clear="true" placeholder="Seleccione un médico de la lista..">{{$select.selected.medico1}}</ui-select-match>
+                                           <ui-select-choices repeat="medico.idMedico as medico in medicos | filter: $select.search">
+                                                <div ng-bind-html="medico.medico1 | highlight: $select.search"></div>
+                                                <!--<small ng-bind-html="' Descripción: '+medico.descripcion| highlight: $select.search"></small>-->
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <button class="btn btn-warning" data-toggle="modal" data-target="#newMedico"><em class="glyphicon glyphicon-plus"></em></button>
                                     </div>
-                                </div>
+                                </div>                               
                             </div>
                             <div class="col-md-4">
                                 <div class="col-xs-12">
@@ -167,3 +168,37 @@
     </div>
 </div>
 <!-- /.content-wrapper -->
+
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="newMedico">
+  <div class="modal-dialog" role="document">
+        <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo Médico</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nombre *</label>
+                    <input type="text" name="nombre" ng-model="newMedico.medico1" placeholder="Nombre del médico" class="form-control">
+                </div>               
+                <p>*Los campos son obligatorios</p>
+
+                <div class="col-xs-12">
+                    <div class="callout callout-success" ng-show="errorAddMedico== 0" style="margin-top: 20px;">
+                        <h4><i class="icon fa fa-check"></i> &nbsp; Correcto!</h4>
+                        <p>{{messageAfterAddMedico}}</p>
+                    </div>
+                    <div class="callout callout-danger" ng-show="errorAddMedico == 1 " style="margin-top: 20px;">
+                        <h4><i class="icon fa fa-ban"></i> &nbsp; Error!</h4>
+                        <p>{{messageAfterAddMedico}}</p>
+                    </div>                  
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" ng-click="addMedico()">Añadir</button>
+              </div>
+         </div> 
+  </div>
+</div>

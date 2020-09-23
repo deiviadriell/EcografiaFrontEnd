@@ -27,7 +27,7 @@
                                 <th>Apellidos</th>
                                 <th>Dirección</th>
                                 <th>Teléfono</th>
-                                <th>Correo</th>
+                                <th>F. Última Consulta</th>
                                 <th>Género</th>
                                 <th><em class="fa fa-cog"></em></th>
                             </tr>
@@ -39,7 +39,7 @@
                                 <td>{{paciente.apellidos}}</td>
                                 <td>{{paciente.direccion}}</td>
                                 <td>{{paciente.telefono}}</td>
-                                <td>{{paciente.correo}}</td>                                
+                                <td>{{paciente.fechaUltimaConsulta | getCuteDateWithoutHours}}</td>                                
                                 <td>{{paciente.genero}}</td>                                
                                 <td align="center">
                                     <a class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Paciente" href="#editPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-pencil"></em></a>                                    

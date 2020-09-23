@@ -14,9 +14,15 @@ if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
 CKEDITOR.config.height = 800;
 CKEDITOR.config.width = 'auto';
 CKEDITOR.config.extraPlugins = 'texttransform';
+//CKEDITOR.config.extraPlugins = 'pastefromword';
+//CKEDITOR.config.extraPlugins = 'font';
 let pts = [9, 12, 14, 16],
 	px = [16, 24, 48];
+
 CKEDITOR.config.fontSize_sizes = '8/8pt;9/9pt;10/10pt;11/11pt;12/12pt;14/14pt;16/16pt;18/18pt;20/20pt;22/22pt;24/24pt;26/26pt;28/28pt;36/36pt;48/48pt;72/72pt;';
+//CKEDITOR.fontSize_sizes = pts.map(ptVal => `${ptVal}/${ptVal}.0pt`).concat(px.map(pxVal => `${pxVal}px/${pxVal}px`)).join(';');
+//CKEDITOR.fontSize_sizes = pts.map(ptVal => `${ptVal}/${ptVal}.0pt`).concat(px.map(pxVal => `${pxVal}px/${pxVal}px`)).join(';');
+//CKEDITOR.config.disableNativeSpellChecker = true;
 CKEDITOR.disableNativeSpellChecker = false;
 CKEDITOR.pasteFromWordRemoveFontStyles = false,
 CKEDITOR.pasteFromWordRemoveStyles = false
@@ -90,12 +96,34 @@ var initSample = (function () {
         req1.open("GET", "http://localhost/api/Pacientes/" + seguimiento.idPaciente, false);
         // Envío de la petición
         req1.send(null);
+
         // Impresión por la consola de la respuesta recibida desde el servidor        
-        paciente = JSON.parse(req1.response);        
-        //let fechaNacimiento = new Date(paciente.fecha);
-        //console.log(fechaNacimiento);
-        
-        //calcularEdad(fechaNacimiento.getMonth(), fechaNacimiento.getDay(), fechaNacimiento.getFullYear());
+        paciente = JSON.parse(req1.response);  
+
+        var req2 = new XMLHttpRequest();
+        // Petición HTTP GET síncrona hacia el archivo fotos.json del servidor
+        req2.open("GET", "http://localhost/api/Medicos/" + seguimiento.idMedicoReferente, false);
+        // Envío de la petición
+        req2.send(null);   
+        // Impresión por la consola de la respuesta recibida desde el servidor        
+        medicoReferente = JSON.parse(req2.response);        
+      	 var fechaNacimiento=""; 
+            if (paciente.fecNacimiento != null)
+                fechaNacimiento= paciente.fecNacimiento.substring(0, 10);
+            else
+                fechaNacimiento = ''
+            var birthday_arr = fechaNacimiento.split("-");
+            var birthday_date = new Date(birthday_arr[0], birthday_arr[1] - 1, birthday_arr[2]);
+            var ageDifMs = Date.now() - birthday_date.getTime();
+            var ageDate = new Date(ageDifMs);
+            edadDelPaciente = Math.abs(ageDate.getUTCFullYear() - 1970);
+           if (edadDelPaciente === null || Number.isNaN(edadDelPaciente))
+            {
+               edadDelPaciente="";
+
+            }
+           
+            console.log(edadDelPaciente);
        
     }    
 	var wysiwygareaAvailable = isWysiwygareaAvailable(),
@@ -111,7 +139,7 @@ var initSample = (function () {
 
 		editorElement.setHtml('<div class="container-fluid">'
             + '<div style="page-break-before: always;page-break-after: always;margin-left: 25px; margin-right: 25px;" class="row">'
-            + '<p><span style="font-size:12pt"><span style="font-family:Calibri,sans-serif"><span style="color:red">' + fechaActual + '</span></p>  <span style="font-size:12pt"><span style="font-family:Times New Roman,serif"><strong><span style="font-family:Elephant,serif"><span style="color:blue">NOMBRE DEL PACIENTE: &nbsp;&nbsp;</span></span></strong><u><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">' + paciente.nombres + ' ' + paciente.apellidos + '</span></span></u><strong>&nbsp;&nbsp;&nbsp;&nbsp; </strong></span></span>   <br/><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">EDAD:&nbsp; &nbsp;</span></span></strong><u><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">' + edadDelPaciente + '</span></span></u></span></span><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></strong></span></span> </br>     <span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">MEDICO SOLICITANTE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></strong><u><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">DR/DRA ' + seguimiento.medicoReferente + '</span></span></u></span></span>    <hr style="size="8px" color="black">   <p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:red">RESULTADO: </span></span></strong></span></span></p>  </div> </div> '
+            + '<p><span style="font-size:12pt"><span style="font-family:Calibri,sans-serif"><span style="color:red">' + fechaActual + '</span></p>  <span style="font-size:12pt"><span style="font-family:Times New Roman,serif"><strong><span style="font-family:Elephant,serif"><span style="color:blue">NOMBRE DEL PACIENTE: &nbsp;&nbsp;</span></span></strong><u><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">' + paciente.nombres + ' ' + paciente.apellidos + '</span></span></u><strong>&nbsp;&nbsp;&nbsp;&nbsp; </strong></span></span>   <br/><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">EDAD:&nbsp; &nbsp;'+edadDelPaciente+' &nbsp; AÑOS</span></span></strong><u><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue"></span></span></u></span></span><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></strong></span></span> </br>     <span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">MEDICO SOLICITANTE:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></strong><u><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:blue">DR/DRA ' + medicoReferente.medico1 + '</span></span></u></span></span>    <hr style="size="8px" color="black">   <p><span style="font-size:12pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><strong><span style="font-family:&quot;Elephant&quot;,&quot;serif&quot;"><span style="color:red">RESULTADO: </span></span></strong></span></span></p>  </div> </div> '
             
 				
 			);
@@ -172,6 +200,14 @@ var initEditarResultado = (function () {
         req.send(null);
         // Impresión por la consola de la respuesta recibida desde el servidor        
         seguimiento = JSON.parse(req.response);
+
+        var req2 = new XMLHttpRequest();
+        // Petición HTTP GET síncrona hacia el archivo fotos.json del servidor
+        req2.open("GET", "http://localhost/api/Medicos/" + seguimiento.idMedicoReferente, false);
+        // Envío de la petición
+        req2.send(null);   
+        // Impresión por la consola de la respuesta recibida desde el servidor        
+        medicoReferente = JSON.parse(req2.response);   
         
     }
     var wysiwygareaAvailable = isWysiwygareaAvailable(),

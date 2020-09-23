@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'chart.js', 'angular.filter', 'ui.select']);
+var app = angular.module('myApp', ['ngRoute', 'chart.js', 'angular.filter', 'ui.select', 'ngSanitize']);
 app.factory('Server', function () {
     return {
         //direction: 'http://172.31.8.192:8081/'

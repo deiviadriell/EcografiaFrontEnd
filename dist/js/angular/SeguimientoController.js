@@ -9,13 +9,14 @@
     CKEDITOR.config.extraPlugins = 'texttransform';
     //CKEDITOR.config.disableNativeSpellChecker = true;
     CKEDITOR.disableNativeSpellChecker = false;
-
+    $scope.newSeguimiento = {};
     $scope.initializeNewSeguimiento = function () {
         //console.log($filter('getCuteDate')());
 
 
         $scope.idPaciente = $routeParams.idPaciente;
         $scope.getPaciente($routeParams.idPaciente);
+	    $scope.getMedicos();
         $scope.newSeguimiento.idPaciente = $routeParams.idPaciente;
         //$scope.getSeguimientoFromPaciente($routeParams.idPaciente);
 
@@ -34,6 +35,7 @@
     $scope.initializeEditSeguimiento = function () {
 
         $scope.idSeguimiento = $routeParams.idSeguimiento;
+        $scope.getMedicos();
         $scope.getSeguimiento();
 
 
@@ -59,16 +61,21 @@
             $scope.editSeguimiento = data;
             $scope.getPaciente($scope.editSeguimiento.idPaciente);
             $scope.idPaciente = $scope.editSeguimiento.idPaciente;
-            console.log(data);
+
         });
     }
 
     $scope.getPaciente = function (idPaciente) {
         $http.get(Server.direction + 'api/Pacientes/' + idPaciente, { headers: { 'Content-Type': 'application/json' } }).success(function (data) {
-            $scope.editPaciente = data;
-            console.log($scope.editPaciente);
+            $scope.editPaciente = data;           
         });
     }    
+  $scope.getMedicos = function () {
+        $http.get(Server.direction + 'api/Medicos', { headers: { 'Content-Type': 'application/json' } }).success(function (data) {
+            $scope.medicos = data;
+            
+        });
+    }
     $scope.seguimientosPorFecha = function (busqueda) {
         if (busqueda == null) {
             $scope.errorBusqueda = 1; $scope.messageAfterBusqueda = "Llene todos los campos de búsqueda."; $timeout(function () { $scope.errorBusqueda = -1; }, 2000);
@@ -143,10 +150,22 @@
             $scope.errorAddSeguimiento = 0; $scope.messageAfterAddSeguimiento = "Añadido Exitosamente"; $timeout(function () { $scope.errorAddSeguimiento = -1; }, 3000);
             $scope.newSeguimiento = data;
             window.location.href = '../../../editor/resultado.html?idSeguimiento=' + $scope.newSeguimiento.idSeguimiento;
-            console.log("agregando");
+            console.log($scope.newSeguimiento);
         }).error(function (data) {
-            console.log(data);
+            console.log($scope.newSeguimiento);
             $scope.errorAddSeguimiento = 1; $scope.errorAddSeguimiento = data.Message + " Error al añadir seguimiento, intente más tarde";
+        });
+    }
+    $scope.addMedico = function () {
+        $scope.loading = true;
+        $scope.newMedico.estado = true;        
+        $http.post(Server.direction + 'api/Medicos', $scope.newMedico, { headers: { 'Content-Type': 'application/json' } }).success(function (data) {
+            $scope.errorAddMedico = 0; $scope.messageAfterAddMedico = "Añadido Exitosamente"; $timeout(function () { $scope.errorAddMedico = -1; }, 3000);
+            $scope.getMedicos();
+            
+        }).error(function (data) {
+            console.log($scope.newSeguimiento);
+            $scope.errorAddMedico = 1; $scope.errorAddSeguimiento = data.Message + " Error al añadir seguimiento, intente más tarde";
         });
     }
     $scope.exportarExcelRealTodosSeguimientos = function (busqueda) {
