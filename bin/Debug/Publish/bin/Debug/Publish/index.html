@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ecoimagen Quevedo</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+
+
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="plugins/ui-select/select.css">
+    <!-- Bootstrap time Picker -->
+    <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style>
+        .greeting h1 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: lighter;
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 0;
+}
+.greeting h2 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: lighter;
+  font-size: 30px;
+  line-height: 0px;
+  text-align: center;
+  margin-top: 0;
+}
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini" ng-controller="IndexController" ng-init="initHome()">
+    <div class="wrapper">
+
+        <header class="main-header">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>A</b>LT</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>EcoImagen</b>Quevedo</span>
+            </a>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <!-- search form -->
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">Menú Navegación</li>
+                    <li><a href="#paciente"><i class="fa fa-user"></i> <span>Paciente</span></a></li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-file-text-o"></i>
+                            <span>Seguimientos</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#seguimiento"><i class="fa fa-plus"></i> Seguimiento</a></li>
+                            <li><a href="#seguimientosReporte"><i class="fa fa-line-chart"></i>Reporte</a></li>
+                        </ul>
+                    </li>
+                    <!--<li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-database"></i>
+                            <span>Respaldos</span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="#respaldosOffLine"><i class="fa fa-desktop"></i> Off line</a></li>
+                            <li><a href="#respaldosOnline"><i class="fa fa-cloud"></i> On line</a></li>
+                        </ul>
+                    </li>-->
+                    <!--<li><a href="#newSeguimiento"><i class="fa fa-book"></i> <span>Seguimiento</span></a></li>-->
+
+
+
+
+
+
+
+
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container">
+                    <div class="greeting">
+                        <img src="dist/img/ecografia.png" class="img-responsive note-float-left" style="display: block; PADDING-RIGHT: 30px; margin: auto; width: 15%; float: left;">
+                        <h1 style="text-align:center; color:#2595bf; font-family:Elephant;">ECOIMAGEN QUEVEDO</h1>                        
+                        <br />
+                        <h2 style="text-align:center;font-family: Helvetica, Arial, sans-serif;color:#000000"><b>Diagnosticando tu enfermedad para el cuidado de tu salud</b></h2>                        
+                        <h3 style="text-align:center;font-family: Helvetica, Arial, sans-serif;color:#000000"><b>Centro de diagnóstico médico por imágenes</b></h3>                                                
+                    </div>
+                    <!--<div style="text-align:center" class="row">
+                                            <div class="col-sm">
+                                                <img width="170" height="140" src="dist/img/ecografia.png" alt="Logo" />
+                                            </div>
+                                            <div class="col-sm">
+                                                <h1 style="text-align:center; font-family:Elephant;color:#5195EF">ECOIMAGENQUEVEDO</h1>
+                                                <h4 style="text-align:center;font-family: Helvetica, Arial, sans-serif;color:"><b>Diagnosticando tu enfermedad para el cuidado de tu Salud</b></h4>
+                                                <h5 style="text-align:center;font-family: Helvetica, Arial, sans-serif"><b>CENTRO DE DIAGNOSTICO MEDICO POR IMAGENES</b></h5>
+                                            </div>
+                                            <div class="col-sm">
+                                                <img width="170" height="140" src="dist/img/ecografia.png" alt="Logo" />
+                                            </div>
+
+                    </div>-->
+
+                </div>
+            </section>
+
+            <!-- Main content -->
+
+            <section class="content" data-ng-view="">
+
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+
+                    <!-- ./col -->
+                    <!-- ./col -->
+                    <!-- ./col -->
+                    <!-- ./col -->
+                </div>
+                <!-- /.row -->
+                <!-- Main row -->
+                <!-- /.row (main row) -->
+
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 1.1.0
+            </div>
+
+            <strong class="text-center">
+                <a style="font-size:20px;" href="https://www.facebook.com/DeiviBelongToJesus" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                &nbsp;&nbsp;&nbsp;
+                <a style="font-size:20px;" href="mailto:davidzunigaortiz92@gmail.com" target="_blank"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                &nbsp;&nbsp;&nbsp;
+                <a style="font-size:20px;" href="https://wa.me/593969311092" target="_blank"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                &nbsp;&nbsp;&nbsp;
+                 <a style="font-size:20px;" href="https:davidzunigao.com" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i></a>
+                &nbsp;&nbsp;&nbsp;
+                <a style="font-size:20px;" href="https://twitter.com/deivi_adriell" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;Copyright &copy; 2020 Ing. David Zúñiga 0969311092.
+
+            </strong>
+
+        </footer>
+
+
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery 3 -->
+
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+
+
+    <!-- daterangepicker -->
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- datepicker -->
+    <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <!-- Slimscroll -->
+    <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="bower_components/fastclick/lib/fastclick.js"></script>
+
+    <script src="plugins/angular/angular.min.js"></script>
+    <script src="plugins/angular/angular-route.js"></script>
+    <script src="plugins/angular/angular-cookies.js"></script>
+    <script src="plugins/angular/angular-sanitize.js"></script>
+    <script src="plugins/angular/angular-filter.min.js"></script>
+    <script src="plugins/angular/lodash.min.js"></script>
+
+    <script src="plugins/ui-select/select.js"></script>
+
+
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+
+    <script src="dist/js/angular/app.js?v1.4"></script>
+    <script src="dist/js/angular/IndexController.js?v1.0"></script>
+    <script src="dist/js/angular/PacienteController.js?v1.1"></script>
+    <script src="dist/js/angular/RespaldoController.js?v1.0"></script>
+    <script src="dist/js/angular/SeguimientoController.js?v1.1"></script>
+    <script src="dist/js/angular/HomeController.js"></script>
+    <script src="dist/js/demo.js"></script>
+    <!-- CK Editor -->
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="bower_components/ckeditor/ckeditor.js"></script>
+
+    <script src="bower_components/ckeditor/plugins/font/plugin.js"></script>
+
+    <!--charts-->
+ <script src="plugins/angular/Chart.min.js"></script>
+    <script src="plugins/angular/angular-chart.min.js"></script>
+
+
+    <!--<script src="https://cdn.ckeditor.com/ckeditor5/12.1.0/decoupled-document/ckeditor.js"></script>-->
+    <!--<!--<script>
+    $(function () {
+      // Replace the <textarea id="editor1"> with a CKEditor
+      // instance, using default configuration.
+      CKEDITOR.replace('editor1')
+      //bootstrap WYSIHTML5 - text editor
+      $('.textarea').wysihtml5()
+    })
+      </script>-->
+    <script>
+        $('#datepicker').datepicker();
+    </script>
+</body>
+
+</html>

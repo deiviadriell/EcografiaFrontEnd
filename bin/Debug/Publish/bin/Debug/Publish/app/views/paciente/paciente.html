@@ -1,0 +1,112 @@
+﻿<!-- Main content -->
+<section class="content" ng-init="initializePaciente()">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Paciente</li>
+    </ol>
+    <div class="row">
+        <div class="loading" ng-show="loading">Loading&#8230;</div>         
+        <div class="col-xs-12">
+            <div class="jumbotron jumbotron-fluid" style="padding-right: 30px;padding-left: 30px;">
+                <h1>
+                    Paciente&nbsp;
+                </h1>
+                <p>Seleccione un paciente o agregue uno nuevo.</p>
+                <a href="#newPaciente" type="button" class="btn btn-success btn-block"><i class="fa fa-plus"></i> Añadir Paciente</a>
+            </div>            
+            <div class="col-xs-12">
+                <div class="col-xs-12">
+                    <input type="text" class="form-control" ng-keyup="$event.keyCode == 13 ? busquedaDePacientes(pacienteABuscar) : null"  ng-model="pacienteABuscar" placeholder="Filtre Búsqueda" />
+                </div>
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-striped table-bordered table-list">
+                        <thead>
+                            <tr>
+                                <th>Cédula</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Dirección</th>
+                                <th>Teléfono</th>
+                                <th>F. Última Consulta</th>
+                                <th>Género</th>
+                                <th><em class="fa fa-cog"></em></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="paciente in filtered = (pacientes| filter: queryPaciente) ">
+                                <td>{{paciente.cedula}}</td>
+                                <td>{{paciente.nombres}}</td>
+                                <td>{{paciente.apellidos}}</td>
+                                <td>{{paciente.direccion}}</td>
+                                <td>{{paciente.telefono}}</td>
+                                <td>{{paciente.fechaUltimaConsulta | getCuteDateWithoutHours}}</td>                                
+                                <td>{{paciente.genero}}</td>                                
+                                <td align="center">
+                                    <a class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Paciente" href="#editPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-pencil"></em></a>                                    
+                                    <button  class="btn btn-danger" data-toggle="modal" data-target="#deletePaciente" ng-click="changeEditPaciente(paciente)"><em class="fa fa-trash"></em></button>
+                                    <a data-toggle="tooltip" data-placement="top" title="Ver Paciente" class="btn btn-info" href="#VerPaciente/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-eye"></em></a>
+                                    <a data-toggle="tooltip" data-placement="top" title="Añadir Seguimiento" class="btn btn-success" href="#newSeguimiento/{{paciente.idPaciente}}" target="_blank"><em class="fa fa-file-text-o"></em></a>
+                                    
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p ng-if="pacientes.length>0">Mostrando {{pacientes.length}} pacientes, total de pacientes en la base de datos {{totalPacientes}}</p>
+                    
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button ng-click="siguientesPaciente()" class="btn btn-info btn-block" ng-if="cuadernos.length>=(busquedaPacientes.skip+busquedaPacientes.take)">Más resultados...</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="col-md-12">
+        <div class="callout callout-success" ng-show="errorAddPaciente== 0" style="margin-top: 20px;">
+            <h4><i class="icon fa fa-check"></i> &nbsp; Correcto!</h4>
+            <p>{{messageAfterAddPaciente}}</p>
+        </div>
+        <div class="callout callout-danger" ng-show="errorAddPaciente == 1 " style="margin-top: 20px;">
+            <h4><i class="icon fa fa-ban"></i> &nbsp; Error!</h4>
+            <p>{{messageAfterAddPaciente}}</p>
+        </div>
+    </div>
+
+</section>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deletePaciente">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmar borrado de Paciente</h4>
+            </div>
+            <div class="modal-body">
+                <p>Está a punto de borrar un paciente de la base de datos</p>                
+                <p>Cédula: {{editPaciente.cedula}}</p>
+                <p>Paciente: {{editPaciente.nombres}} {{editPaciente.apellidos}}</p>
+                <p>Direccion: {{editPaciente.direccion}}</p>
+                <p>Teléfono: {{editPaciente.telefono}}</p>
+                <p>Correo: {{editPaciente.correo}}</p>
+                <p>Género: {{editPaciente.genero}}</p>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" ng-click="deletePaciente()">Borrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>

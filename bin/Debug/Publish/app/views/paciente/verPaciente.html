@@ -1,0 +1,147 @@
+﻿<script>
+    $('#datepicker').datepicker({
+        autoclose: true
+    })
+</script>
+<section class="content"  ng-init="initializeVerPaciente()">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Ver Paciente</li>
+    </ol>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <!--Accordion -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <!--Busqueda Normal-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingDatos">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseDatos" aria-expanded="true" aria-controls="collapseDatos">
+                                    Paciente
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseDatos" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTaxonomia">
+                            <div class="panel-body">
+                                <!-- left column -->
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form role="form">
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-sm-4"><strong>Cédula</strong></div>
+                                                <div class="col-sm-8">{{editPaciente.cedula}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4"><strong>Nombres</strong></div>
+                                                <div class="col-sm-8">{{editPaciente.nombres}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4"><strong>Dirección</strong></div>
+                                                <div class="col-sm-8">{{editPaciente.direccion}}</div>
+                                            </div>  
+                                            <div class="row">
+                                                <div class="col-sm-4"><strong>Género</strong></div>
+                                                <div class="col-sm-8">{{editPaciente.genero}}</div>
+                                            </div>                                              
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form role="form">
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-sm-4"><strong>Correo</strong></div>
+                                                <div class="col-sm-8">{{editPaciente.correo}}</div>
+                                            </div>   
+                                            <div class="row">
+                                                <div class="col-sm-4"><strong>Apellidos</strong></div>
+                                                <div class="col-sm-8">{{editPaciente.apellidos}}</div>
+                                            </div>    
+                                            <div class="row">
+                                                <div class="col-sm-4"><strong>Teléfono</strong></div>
+                                                <div class="col-sm-8">{{editPaciente.telefono}}</div>
+                                            </div>   
+                                            <div class="row">
+                                                <div class="col-sm-4"><strong>Fecha de Nacimiento</strong></div>
+                                                <div class="col-sm-8">{{editPaciente.fecNacimiento}}</div>
+                                            </div> 
+                                    </form>
+                                </div>                               
+                            </div>                            
+                        </div>
+                    </div>
+
+                 
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingResultado">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion1" data-target="#collapseResultado" aria-expanded="true" aria-controls="collapseResultado">
+                                Seguimientos
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseResultado" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingResultado">
+                        <div class="panel-body">
+                            <div class="row" style="margin-top: 10px;">
+                                <div ng-if="seguimientos.length>0" class="col-xs-12">
+                                    <p ng-if="seguimientos.length > 0">Se muestran {{seguimientos.length }} de {{seguimientos.length}} resultados</p>
+                                    <table class="table table-striped table-bordered table-list">
+                                        <thead>
+                                            <tr>                                                
+                                                <th style="width:10%">Fecha </th>                                                
+                                                <th>Sintomas</th>
+                                                <th style="width:15%">Médico Referente</th>
+                                                <th>Tipo</th>                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="seguimiento in filtered = (seguimientos | filter: querySeguimientos)">                                                
+                                                <td>{{seguimiento.fecha | getCuteDateWithoutHours}}</td>                                                
+                                                <td>{{seguimiento.sintomas}}</td>
+                                                <td>{{seguimiento.medicoReferente}}</td>
+                                                <td>{{seguimiento.tipoSeguimiento}}</td>                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-12">
+        </div>
+       
+
+    </div>
+   
+   
+    <!--/.col (right) -->
+    <div class="col-md-12">
+        <div class="callout callout-success" ng-show="errorAddPaciente== 0" style="margin-top: 20px;">
+            <h4><i class="icon fa fa-check"></i> &nbsp; Correcto!</h4>
+            <p>{{messageAfterAddPaciente}}</p>
+        </div>
+        <div class="callout callout-danger" ng-show="errorAddPaciente == 1 " style="margin-top: 20px;">
+            <h4><i class="icon fa fa-ban"></i> &nbsp; Error!</h4>
+            <p>{{messageAfterAddPaciente}}</p>
+        </div>
+        </div>
+        <!-- /.row -->
+</section>
+

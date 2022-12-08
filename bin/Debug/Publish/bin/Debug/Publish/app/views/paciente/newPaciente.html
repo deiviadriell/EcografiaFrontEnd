@@ -1,0 +1,125 @@
+﻿<script>
+    $('#datepicker').datepicker({
+        autoclose: true
+    })
+</script>
+<section class="content"  ng-init="initializeNuevoPaciente()">
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Registrar Paciente</li>
+    </ol>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-12">
+                <!--Accordion -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <!--Busqueda Normal-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingDatos">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" data-target="#collapseDatos" aria-expanded="true" aria-controls="collapseDatos">
+                                    Paciente
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseDatos" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTaxonomia">
+                            <div class="panel-body">
+                                <!-- left column -->
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form role="form">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Cédula</label>
+                                                <input type="text" class="form-control" ng-model="newPaciente.cedula" id="txtCedula" placeholder="ingrese la cédula del paciente">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Nombres</label>
+                                                <input type="text" class="form-control" id="txtNombres" ng-model="newPaciente.nombres" placeholder="Ingrese los nombres del paciente">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Dirección</label>
+                                                <input type="text" ng-model="newPaciente.direccion" class="form-control" id="txtDireccion" placeholder="Ingrese la direción del paciente">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Género</label>
+                                                <select ng-model="newPaciente.genero" class="form-control select2" style="width: 100%;">
+                                                    <option >Masculino</option>
+                                                    <option>Femenino</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <!-- general form elements -->
+                                    <!-- /.box-header -->
+                                    <!-- form start -->
+                                    <form role="form">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Correo</label>
+                                                <input type="text" class="form-control" ng-model="newPaciente.correo" id="txtCorreo" placeholder="ingrese el correo del paciente">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Apellidos</label>
+                                                <input type="text" class="form-control" ng-model="newPaciente.apellidos" id="txtApelllidos" placeholder="Ingrese los apellidos del paciente">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputPassword1">Teléfono</label>
+                                                <input ng-model="newPaciente.telefono" type="text" class="form-control" id="txtTelefono" placeholder="Ingrese el teléfono del paciente">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Fecha de Nacimiento</label>
+
+                                                <div class="input-group date">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </div>
+                                                    <!--<input type="text" ng-readonly="true" class="form-control" placeholder="Fecha Nacimiento" ng-model="newPaciente.fecNacimiento" formatted-date datepicker>-->
+                                                    <input datepicker="" dp-format="m/d/yyyy" ng-model="newPaciente.fecNacimiento" type="text" class="form-control pull-right" id="datepicker">
+                                                </div>
+                                                <!-- /.input group -->
+                                            </div>
+
+
+                                    </form>
+                                </div>                               
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-success btn-block ng-scope" ng-click="addPaciente()">Añadir Paciente</button>
+                            </div>
+                        </div>
+                    </div>
+
+                 
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-12">
+        </div>
+       
+
+    </div>
+   
+   
+    <!--/.col (right) -->
+    <div class="col-md-12">
+        <div class="callout callout-success" ng-show="errorAddPaciente== 0" style="margin-top: 20px;">
+            <h4><i class="icon fa fa-check"></i> &nbsp; Correcto!</h4>
+            <p>{{messageAfterAddPaciente}}</p>
+        </div>
+        <div class="callout callout-danger" ng-show="errorAddPaciente == 1 " style="margin-top: 20px;">
+            <h4><i class="icon fa fa-ban"></i> &nbsp; Error!</h4>
+            <p>{{messageAfterAddPaciente}}</p>
+        </div>
+        </div>
+        <!-- /.row -->
+</section>
+

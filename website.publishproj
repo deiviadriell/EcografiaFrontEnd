@@ -18,7 +18,7 @@ Copyright (C) Microsoft Corporation. Todos los derechos reservados.
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{a61167ab-97be-4899-a9c9-d4e908fc3055}</ProjectGuid>
     <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
-    <SourceWebVirtualPath>/Ecografia</SourceWebVirtualPath>
+    <SourceWebVirtualPath>/EcografiaFrontEnd</SourceWebVirtualPath>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <SourceWebProject>
     </SourceWebProject>
